@@ -1,0 +1,10 @@
+fastapi
+uvicorn[standard]
+sqlmodel
+pydantic
+python-multipart
+pandas
+reportlab
+python-dotenv
+pytest
+requests

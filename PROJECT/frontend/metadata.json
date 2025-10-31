@@ -1,0 +1,5 @@
+{
+  "name": "Smart Retail Operations Platform",
+  "description": "An inventory classification tool to help categorize items into A, B, and C groups based on their value contribution. It helps prioritize stock management and focus on high-value items using ABC analysis.",
+  "requestFramePermissions": []
+}
