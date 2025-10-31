@@ -1,111 +1,137 @@
-# 📦 Warehouse Flow Optimizer (WFO)
-### AI-Powered Workflow Simulation and Optimization Platform
 
----
+# 🧠 Smart Retail Operations Platform – AI-Powered ABC Inventory Classification
 
-## 🧾 1. Functional Requirements Document (FRD)
-- Overview of warehouse operational processes (Inbound, Storage, Picking, Dispatch).  
-- Functional goals: minimize travel distance, improve slotting accuracy, and enhance worker efficiency.  
-- Key modules:  
-  - **SKU Analyzer** – evaluates SKU movement frequency and current locations.  
-  - **Route Optimizer** – simulates worker routes and finds optimal travel paths.  
-  - **Simulation Dashboard** – visualizes current vs optimized flow.  
-  - **Admin Module** – configuration for warehouse zones, SKU categories, and KPIs.  
-- Integration points with WMS, TMS, and ERP systems.  
+## 1. Functional Requirements Document
 
----
+### Overview
+The **Smart Retail Operations Platform** helps warehouse supervisors classify inventory items into A, B, and C categories using AI-enabled rule engines and analytics. This assists in efficient stock prioritization and management.
 
-## 🧱 2. Application Architecture
-- **Frontend:** React.js + TailwindCSS  
-- **Backend:** FastAPI (Python)  
-- **AI/ML Engine:** LLM-driven optimization layer using OpenAI API  
-- **Database:** PostgreSQL  
-- **Storage:** AWS S3 for simulation data and diagrams  
-- **Deployment:** Dockerized microservices on AWS ECS  
-- **Integrations:** Confluence (auto documentation), JIRA (auto story generation)  
+### User Story
+As a warehouse supervisor at a retail company, I want a simple inventory classification tool that categorizes items into A, B, and C groups based on their value contribution, so that I can focus on high-value items without needing advanced analytics.
 
----
+### Key Functionalities
+1. **Rule Engine** – Define and manage classification rules for A/B/C categories.  
+2. **Manual Data Entry** – Input item name, quantity, and cost directly.  
+3. **Automatic Classification** – AI-based logic categorizes items into A, B, or C.  
+4. **Threshold Management** – Set min/max inventory levels for each category.  
+5. **Dashboard** – Visualize categorized inventory, totals, and KPIs.  
+6. **Export Options** – Download categorized data in CSV or PDF format.
 
-## 🧠 3. Technical Architecture
-- **Core Components:**  
-  - `Flow Simulation Engine` – processes layout & movement logic  
-  - `LLM Design Agent` – interprets warehouse rules & proposes designs  
-  - `Optimization Engine` – runs slotting/travel-time calculations  
-  - `Visualization Module` – generates mermaid/draw.io diagrams  
-- **APIs:**  
-  - `/simulateFlow`  
-  - `/generateDesign`  
-  - `/compareResults`  
-  - `/pushToConfluence`  
-- **Security:** JWT authentication + Role-based access  
+### Business Benefits
+- Simplifies inventory prioritization.  
+- Reduces overstock of low-value items.  
+- Improves warehouse efficiency and focus on high-impact inventory.  
 
----
 
-## 🗃️ 4. Database Design / Data Models
-### Key Tables
-| Table | Description |
-|-------|--------------|
-| `warehouses` | Master data for each warehouse |
-| `zones` | Logical division of warehouse areas |
-| `skus` | Product master including frequency, size, and category |
-| `locations` | Bin/slot data with coordinates |
-| `movements` | Transactional table capturing SKU movements |
-| `users` | Authentication and roles |
-| `simulations` | Stores optimization run metadata and results |
+## 2. Application Architecture
 
-### Relationships  
-- One `warehouse` → many `zones`  
-- One `zone` → many `locations`  
-- One `sku` → many `movements`  
+### Architecture Overview
+A modular three-tier architecture with AI-powered backend intelligence.
 
----
+```
+Frontend (React / Vue / Angular)
+   │
+   ├── REST API Layer (FastAPI / Flask)
+   │
+   ├── AI/Rule Engine (Classification Logic)
+   │
+   └── Database Layer (PostgreSQL / SQLite)
+```
 
-## 🎨 5. UI/UX Design
-- **Design System:** Clean, dark-themed dashboard inspired by modern logistics UIs.  
-- **Main Screens:**  
-  1. Dashboard – KPIs and visual summary  
-  2. Flow Simulation – animated floor map  
-  3. Optimization Result – comparison between current vs optimized metrics  
-  4. Configuration Panel – manage SKUs, zones, and parameters  
-- **Tools Used:** Figma + TailwindCSS  
+### Components
+- **Frontend:** User dashboard, rule management, and data input UI.  
+- **Backend:** FastAPI service exposing endpoints for CRUD, classification, and reporting.  
+- **AI Engine:** Implements ABC logic using rule-based or ML techniques.  
+- **Database:** Stores items, rules, thresholds, and user configurations.
 
----
 
-## 💻 6. Software Code & Working Software
-- **Code Base:** Python (FastAPI) + React.js  
-- **Modules:**  
-  - `/backend/app.py` – API logic  
-  - `/frontend/src/components` – UI components  
-  - `/ml/optimization_engine.py` – slotting & travel logic  
-- **Output:**  
-  - Runs warehouse simulation  
-  - Exports result to Confluence with rich diagrams and summaries  
+## 3. Technical Architecture
 
----
+| Layer | Technology | Purpose |
+|-------|-------------|----------|
+| Frontend | React.js / TailwindCSS | Interactive UI for item management |
+| Backend | FastAPI (Python) | API services for rule engine and CRUD |
+| AI Logic | Scikit-learn / Pandas | Classification and computation engine |
+| Database | PostgreSQL / SQLite | Persistent data store |
+| Export Engine | ReportLab / Pandas | Generates CSV or PDF reports |
+| Hosting | Docker / AWS EC2 | Cloud-ready container deployment |
 
-## 🧪 7. Functional Test Scripts
-| Test Case ID | Description | Expected Result |
-|---------------|--------------|----------------|
-| TC01 | Simulate warehouse layout upload | Layout validated successfully |
-| TC02 | Run optimization on sample SKU data | Optimized layout generated |
-| TC03 | Compare before vs after metrics | Distance and time savings displayed |
-| TC04 | Push results to Confluence | Page created with diagrams and metrics |
-| TC05 | User login & access control | Only authorized roles can run simulations |
 
----
+## 4. Database Design / Data Models
 
-## 📘 8. User Manual
-### Getting Started
-1. Login using assigned credentials.  
-2. Upload your warehouse layout and SKU dataset.  
-3. Click **“Run Optimization”** to simulate the new flow.  
-4. View results in the dashboard or export to Confluence.  
+### Core Tables
+#### `items`
+| Field | Type | Description |
+|--------|------|-------------|
+| id | INT | Primary key |
+| item_name | TEXT | Name of the item |
+| quantity | INT | Quantity available |
+| unit_cost | FLOAT | Unit cost per item |
+| category | TEXT | A/B/C classification |
 
-### Features
-- Real-time visualization of SKU movements.  
-- Auto-generated optimization insights.  
-- Integration-ready API endpoints.  
+#### `thresholds`
+| Field | Type | Description |
+|--------|------|-------------|
+| id | INT | Primary key |
+| category | TEXT | Item category (A/B/C) |
+| min_level | INT | Minimum reorder point |
+| max_level | INT | Maximum stock limit |
+
+
+## 5. UI/UX Design
+
+### UX Principles
+- Simple, intuitive, and minimalistic design.  
+- Clean dashboard with category filters and search.  
+- Real-time validation during item entry.  
+- Clear visualization of A/B/C distribution.
+
+### Key Screens
+1. **Login / Landing Page** – Secure access to the dashboard.  
+2. **Item Entry Screen** – Form for inputting item data.  
+3. **Dashboard View** – Categorized item summary with charts.  
+4. **Threshold Configuration** – Set and update limits for categories.  
+5. **Export Page** – Download options for CSV/PDF.
+
+
+## 6. Software Code & Working Software
+
+### Code Overview
+- Developed using **FastAPI** for backend and **React.js** for frontend.  
+- Uses **Pandas** for ABC computation.  
+- Database configured via **SQLAlchemy ORM**.  
+- Export functions implemented with **ReportLab** (PDF) and **CSVWriter**.
+
+### Deployment
+- Containerized using **Docker**.  
+- Runs on **Uvicorn server** at port `8000`.  
+- Frontend connects to backend via REST API endpoints.  
+
+
+## 7. Functional Test Scripts
+
+| Test Case ID | Description | Steps | Expected Result |
+|---------------|-------------|--------|------------------|
+| TC001 | Add new inventory item | Enter details → Submit | Item saved to DB |
+| TC002 | Auto classify item | Add item → Trigger classification | Correct A/B/C label assigned |
+| TC003 | Threshold validation | Set threshold → Save | Threshold saved successfully |
+| TC004 | Dashboard load | Open dashboard | Items display correctly |
+| TC005 | Export data | Click Export → Choose CSV | File downloaded successfully |
+
+
+## 8. User Manual
+
+### Steps to Use the Application
+1. **Login** to the Smart Retail Operations Platform.  
+2. Navigate to **Add Item** and input item details.  
+3. System will **auto-classify** items into A/B/C categories.  
+4. Configure **threshold limits** for each category under Parameters.  
+5. Use the **Dashboard** to filter and monitor inventory status.  
+6. Click **Export** to download reports.  
 
 ### Support
-For assistance, contact the **WFO Support Team** via:  
-📧 support@wfo.ai  
+For setup or troubleshooting, contact the system administrator or AI agent support team.
+
+---
+
+© 2025 Smart Retail Operations Platform | Powered by AI Agents
