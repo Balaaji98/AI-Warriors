@@ -29,13 +29,13 @@ As a warehouse supervisor at a retail company, I want a simple inventory classif
 A modular three-tier architecture with AI-powered backend intelligence.
 
 ```
-Frontend (React / Vue / Angular)
+Frontend (React)
    │
-   ├── REST API Layer (FastAPI / Flask)
+   ├── REST API Layer (FastAPI )
    │
-   ├── AI/Rule Engine (Classification Logic)
+   ├── AI/Rule Engine (Classification Logic and GenAI (Gemini))
    │
-   └── Database Layer (PostgreSQL / SQLite)
+   └── Database Layer (SQLite)
 ```
 
 ### Components
@@ -49,13 +49,11 @@ Frontend (React / Vue / Angular)
 
 | Layer | Technology | Purpose |
 |-------|-------------|----------|
-| Frontend | React.js / TailwindCSS | Interactive UI for item management |
+| Frontend | React Vite | Interactive UI for item management |
 | Backend | FastAPI (Python) | API services for rule engine and CRUD |
-| AI Logic | Scikit-learn / Pandas | Classification and computation engine |
-| Database | PostgreSQL / SQLite | Persistent data store |
+| AI Logic | Scikit-learn / Pandas / LLM - Gemini | Classification and computation engine |
+| Database | SQLite | Persistent data store |
 | Export Engine | ReportLab / Pandas | Generates CSV or PDF reports |
-| Hosting | Docker / AWS EC2 | Cloud-ready container deployment |
-
 
 ## 4. Database Design / Data Models
 
@@ -87,7 +85,6 @@ Frontend (React / Vue / Angular)
 - Clear visualization of A/B/C distribution.
 
 ### Key Screens
-1. **Login / Landing Page** – Secure access to the dashboard.  
 2. **Item Entry Screen** – Form for inputting item data.  
 3. **Dashboard View** – Categorized item summary with charts.  
 4. **Threshold Configuration** – Set and update limits for categories.  
@@ -103,7 +100,6 @@ Frontend (React / Vue / Angular)
 - Export functions implemented with **ReportLab** (PDF) and **CSVWriter**.
 
 ### Deployment
-- Containerized using **Docker**.  
 - Runs on **Uvicorn server** at port `8000`.  
 - Frontend connects to backend via REST API endpoints.  
 
@@ -122,7 +118,7 @@ Frontend (React / Vue / Angular)
 ## 8. User Manual
 
 ### Steps to Use the Application
-1. **Login** to the Smart Retail Operations Platform.  
+1. **Open** the Smart Retail Operations Platform.  
 2. Navigate to **Add Item** and input item details.  
 3. System will **auto-classify** items into A/B/C categories.  
 4. Configure **threshold limits** for each category under Parameters.  
@@ -134,4 +130,4 @@ For setup or troubleshooting, contact the system administrator or AI agent suppo
 
 ---
 
-© 2025 Smart Retail Operations Platform | Powered by AI Agents
+© TCS ChennAI FRIDAY | Powered by AI WARRIORS CLasifAI
